@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ExhaustWatch</string>
+    <string name="set_password">Set Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="full_name">Full Name</string>
+    <string name="already_have_an_account_login_here">Already Have an Account? Login Here</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
 </resources>
