@@ -1,12 +1,16 @@
 package com.example.exhaustwatch
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -24,6 +28,7 @@ class SetupActivity : AppCompatActivity() {
         val mYearSpinner = findViewById<Spinner>(R.id.yearSpinner)
         val mMakeSpinner = findViewById<Spinner>(R.id.makeSpinner)
         val mModelSpinner = findViewById<Spinner>(R.id.modelSpinner)
+        val REQUEST_CODE = 100
 
         val fAuth = FirebaseAuth.getInstance()
         val fStore = FirebaseFirestore.getInstance()
@@ -78,8 +83,18 @@ class SetupActivity : AppCompatActivity() {
                     mPhone.error = "Phone Number must be at least 10 characters"
                     return
                 }
-                //register user to firebase
 
+                if (ContextCompat.checkSelfPermission(this@SetupActivity, Manifest.permission.ACTIVITY_RECOGNITION)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(this@SetupActivity,
+                        arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
+                        REQUEST_CODE)
+                    // Permission is not granted
+                    //TODO tell what to do if no access
+                }
+
+                //register user to firebase
                 fAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
