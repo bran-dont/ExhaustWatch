@@ -21,6 +21,9 @@ class SetupActivity : AppCompatActivity() {
         val mPhone = findViewById<EditText>(R.id.phoneNumber)
         val mRegisterBtn = findViewById<Button>(R.id.registerButton)
         val mLoginBtn = findViewById<TextView>(R.id.createText)
+        val mYearSpinner = findViewById<Spinner>(R.id.yearSpinner)
+        val mMakeSpinner = findViewById<Spinner>(R.id.makeSpinner)
+        val mModelSpinner = findViewById<Spinner>(R.id.modelSpinner)
 
         val fAuth = FirebaseAuth.getInstance()
         val fStore = FirebaseFirestore.getInstance()
@@ -38,7 +41,7 @@ class SetupActivity : AppCompatActivity() {
                 LoginActivity::class.java
             )
         ) }
-
+        temporaryPopulateSpinners()
 
         mRegisterBtn.setOnClickListener(object : View.OnClickListener {
             @Override
@@ -47,6 +50,9 @@ class SetupActivity : AppCompatActivity() {
                 val password = mPassword.text.toString().trim()
                 val fullName = mFullName.text.toString().trim()
                 val phoneNumber = mPhone.text.toString().trim()
+                val year = mYearSpinner.selectedItem
+                val make = mMakeSpinner.selectedItem.toString().trim()
+                val model = mModelSpinner.selectedItem.toString().trim()
 
                 if (TextUtils.isEmpty(fullName)) {
                     mFullName.error = "Full Name is Required"
@@ -85,10 +91,13 @@ class SetupActivity : AppCompatActivity() {
                                     it
                                 )
                             }
-                            val user = HashMap<String, String>()
+                            val user = HashMap<String, Any>()
                             user["fName"] = fullName
                             user["email"] = email
                             user["phone"] = phoneNumber
+                            user["year"] = year
+                            user["make"] = make
+                            user["model"] = model
                             documentReference?.set(user)?.addOnSuccessListener {
                                 Log.d(
                                     "TAG",
@@ -106,13 +115,12 @@ class SetupActivity : AppCompatActivity() {
                     }
             }
         })
-        temporaryPopulateSpinners()
     }
 
     fun temporaryPopulateSpinners() {
-        val yearSpinner = findViewById<Spinner>(R.id.yearSpinner)
-        val makeSpinner = findViewById<Spinner>(R.id.makeSpinner)
-        val modelSpinner = findViewById<Spinner>(R.id.modelSpinner)
+        val mYearSpinner = findViewById<Spinner>(R.id.yearSpinner)
+        val mMakeSpinner = findViewById<Spinner>(R.id.makeSpinner)
+        val mModelSpinner = findViewById<Spinner>(R.id.modelSpinner)
 
         val years = ArrayList<Int>()
         years.add(1994)
@@ -121,6 +129,6 @@ class SetupActivity : AppCompatActivity() {
         val arrayAdapter: ArrayAdapter<Int> = ArrayAdapter<Int>(this, android.R.layout.simple_spinner_item)
         arrayAdapter.addAll(years)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        yearSpinner.adapter = arrayAdapter
+        mYearSpinner.adapter = arrayAdapter
     }
 }
