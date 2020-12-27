@@ -27,11 +27,11 @@ class SetupActivity : AppCompatActivity() {
         val fAuth = FirebaseAuth.getInstance()
         val fStore = FirebaseFirestore.getInstance()
 
-        if(fAuth.currentUser != null)
-        {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
-            finish()
-        }
+//        if(fAuth.currentUser != null)
+//        {
+//            startActivity(Intent(applicationContext, MainActivity::class.java))
+//            finish()
+//        }
 
 
         mLoginBtn.setOnClickListener { startActivity(Intent(applicationContext, LoginActivity::class.java)) }
