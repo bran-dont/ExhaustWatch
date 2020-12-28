@@ -5,6 +5,7 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
+import kotlin.jvm.Throws
 
 class CSVReader(private var context: Context, private var fileName: String) {
     var rows: MutableList<Array<String>> = ArrayList()

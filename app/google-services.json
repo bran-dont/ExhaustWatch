@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "734022192230",
+    "project_id": "exhaustwatch",
+    "storage_bucket": "exhaustwatch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734022192230:android:e772bb0f8bca12eb3271a7",
+        "android_client_info": {
+          "package_name": "com.example.exhaustwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734022192230-bsk7o6o317hsp7ea6hojaee9spjoii1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCafDG69GmZ1IAHzs2vVPC2hlykVv1rXbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734022192230-bsk7o6o317hsp7ea6hojaee9spjoii1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
