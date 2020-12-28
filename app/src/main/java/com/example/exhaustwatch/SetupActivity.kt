@@ -140,10 +140,26 @@ class SetupActivity : AppCompatActivity() {
         val years = ArrayList<Int>()
         years.add(1994)
         years.add(2000)
+        val makes = ArrayList<String>()
+        makes.add("Audi")
+        makes.add("Toyota")
+        val models = ArrayList<String>()
+        makes.add("A8")
+        makes.add("Camry")
 
-        val arrayAdapter: ArrayAdapter<Int> = ArrayAdapter<Int>(this, android.R.layout.simple_spinner_item)
-        arrayAdapter.addAll(years)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        mYearSpinner.adapter = arrayAdapter
+        val yearArrayAdapter: ArrayAdapter<Int> = ArrayAdapter<Int>(this, android.R.layout.simple_spinner_item)
+        yearArrayAdapter.addAll(years)
+        yearArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        mYearSpinner.adapter = yearArrayAdapter
+
+        val makeArrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item)
+        makeArrayAdapter.addAll(makes)
+        makeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        mYearSpinner.adapter = makeArrayAdapter
+
+        val modelArrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item)
+        modelArrayAdapter.addAll(models)
+        modelArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        mYearSpinner.adapter = modelArrayAdapter
     }
 }
