@@ -25,15 +25,19 @@ class SetupActivity : AppCompatActivity() {
         val mPhone = findViewById<EditText>(R.id.phoneNumber)
         val mRegisterBtn = findViewById<Button>(R.id.registerButton)
         val mLoginBtn = findViewById<TextView>(R.id.createText)
+        val mYearSpinner = findViewById<Spinner>(R.id.yearSpinner)
+        val mMakeSpinner = findViewById<Spinner>(R.id.makeSpinner)
+        val mModelSpinner = findViewById<Spinner>(R.id.modelSpinner)
+        val REQUEST_CODE = 100
 
         val fAuth = FirebaseAuth.getInstance()
         val fStore = FirebaseFirestore.getInstance()
 
-        if(fAuth.currentUser != null)
-        {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
-            finish()
-        }
+//        if(fAuth.currentUser != null)
+//        {
+//            startActivity(Intent(applicationContext, MainActivity::class.java))
+//            finish()
+//        }
 
 
         mLoginBtn.setOnClickListener { startActivity(
@@ -42,6 +46,7 @@ class SetupActivity : AppCompatActivity() {
                 LoginActivity::class.java
             )
         ) }
+        temporaryPopulateSpinners()
 
         mRegisterBtn.setOnClickListener(object : View.OnClickListener {
             @Override
@@ -50,6 +55,9 @@ class SetupActivity : AppCompatActivity() {
                 val password = mPassword.text.toString().trim()
                 val fullName = mFullName.text.toString().trim()
                 val phoneNumber = mPhone.text.toString().trim()
+                val year = mYearSpinner.selectedItem
+                val make = mMakeSpinner.selectedItem.toString().trim()
+                val model = mModelSpinner.selectedItem.toString().trim()
 
                 if (TextUtils.isEmpty(fullName)) {
                     mFullName.error = "Full Name is Required"
@@ -75,8 +83,18 @@ class SetupActivity : AppCompatActivity() {
                     mPhone.error = "Phone Number must be at least 10 characters"
                     return
                 }
-                //register user to firebase
 
+                if (ContextCompat.checkSelfPermission(this@SetupActivity, Manifest.permission.ACTIVITY_RECOGNITION)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(this@SetupActivity,
+                        arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
+                        REQUEST_CODE)
+                    // Permission is not granted
+                    //TODO tell what to do if no access
+                }
+
+                //register user to firebase
                 fAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
@@ -88,10 +106,13 @@ class SetupActivity : AppCompatActivity() {
                                     it
                                 )
                             }
-                            val user = HashMap<String, String>()
+                            val user = HashMap<String, Any>()
                             user["fName"] = fullName
                             user["email"] = email
                             user["phone"] = phoneNumber
+                            user["year"] = year
+                            user["make"] = make
+                            user["model"] = model
                             documentReference?.set(user)?.addOnSuccessListener {
                                 Log.d(
                                     "TAG",
@@ -113,7 +134,6 @@ class SetupActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
-        temporaryPopulateSpinners()
     }
 
     fun temporaryPopulateSpinners() {
