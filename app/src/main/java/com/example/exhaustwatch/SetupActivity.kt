@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.io.IOException
 
 
 class SetupActivity : AppCompatActivity() {
@@ -136,11 +137,31 @@ class SetupActivity : AppCompatActivity() {
     }
 
     fun temporaryPopulateSpinners() {
+        val makesArrayAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
+        val modelsArrayAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
+        val years = ArrayList<String>()
         val yearSpinner = findViewById<Spinner>(R.id.yearSpinner)
         val makeSpinner = findViewById<Spinner>(R.id.makeSpinner)
         val modelSpinner = findViewById<Spinner>(R.id.modelSpinner)
 
-        val years = ArrayList<String>()
+        println("hello")
+        var rows: List<Array<String>> = ArrayList()
+        val csvReader = CSVReader(this@SetupActivity, "vehicles.csv")
+        try {
+            rows = csvReader.readCSV()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        for (i in rows.indices) {
+            println("hello1")
+            years.add(rows[i][63])
+            makesArrayAdapter.add(rows[i][46])
+            modelsArrayAdapter.add(rows[i][47])
+        }
+
+    println("hello2")
+
         years.add("Year")
         years.add("1994")
         years.add("2000")
@@ -151,7 +172,7 @@ class SetupActivity : AppCompatActivity() {
         yearSpinner.adapter = arrayAdapter
 
 
-        val makesArrayAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
+
         makesArrayAdapter.add("Toyota")
         makesArrayAdapter.add("Honda")
         makesArrayAdapter.add("Acura")
@@ -160,7 +181,7 @@ class SetupActivity : AppCompatActivity() {
         makeSpinner.adapter = makesArrayAdapter
 
 
-        val modelsArrayAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
+
         modelsArrayAdapter.add("Camry")
         modelsArrayAdapter.add("Corolla")
         modelsArrayAdapter.add("Impreza")
