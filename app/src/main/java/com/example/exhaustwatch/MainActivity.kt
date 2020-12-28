@@ -1,5 +1,12 @@
 package com.example.exhaustwatch
 
+import android.os.Bundle
+import android.provider.SyncStateContract
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import java.io.IOException
+
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,10 +20,23 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        var rows: List<Array<String>> = ArrayList()
+        val csvReader = CSVReader(this@MainActivity, "vehicles.csv")
+        try {
+            rows = csvReader.readCSV()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        for (i in rows.indices) {
+            Log.d("h", java.lang.String.format("row %s: %s, %s", i, rows[i][0], rows[i][6]))
+
         val fullName = findViewById<TextView>(R.id.your_name)
         val email = findViewById<TextView>(R.id.your_email)
         val phone = findViewById<TextView>(R.id.your_number)
@@ -53,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { item ->
             userMenuSelector(item)
             false
+
         }
 
     }
