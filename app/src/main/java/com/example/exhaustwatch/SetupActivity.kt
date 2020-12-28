@@ -39,7 +39,6 @@ class SetupActivity : AppCompatActivity() {
 //            finish()
 //        }
 
-
         mLoginBtn.setOnClickListener { startActivity(
             Intent(
                 applicationContext,
