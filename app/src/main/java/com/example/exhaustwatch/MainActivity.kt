@@ -27,16 +27,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        var rows: List<Array<String>> = ArrayList()
-        val csvReader = CSVReader(this@MainActivity, "vehicles.csv")
-        try {
-            rows = csvReader.readCSV()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        for (i in rows.indices) {
-            Log.d("h", java.lang.String.format("row %s: %s, %s", i, rows[i][0], rows[i][6]))
-
         val fullName = findViewById<TextView>(R.id.your_name)
         val email = findViewById<TextView>(R.id.your_email)
         val phone = findViewById<TextView>(R.id.your_number)
