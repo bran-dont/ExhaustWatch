@@ -2,8 +2,6 @@ package com.example.exhaustwatch
 
 import android.os.Bundle
 import android.provider.SyncStateContract
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import java.io.IOException
 
 
