@@ -1,5 +1,10 @@
 package com.example.exhaustwatch
 
+import android.os.Bundle
+import android.provider.SyncStateContract
+import java.io.IOException
+
+
 import android.Manifest
 import android.app.Activity
 import android.content.DialogInterface
@@ -7,7 +12,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -26,11 +30,14 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+
         val fullName = findViewById<TextView>(R.id.your_name)
         val email = findViewById<TextView>(R.id.your_email)
         val phone = findViewById<TextView>(R.id.your_number)
@@ -67,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { item ->
             userMenuSelector(item)
             false
+
         }
 
         //permissions
