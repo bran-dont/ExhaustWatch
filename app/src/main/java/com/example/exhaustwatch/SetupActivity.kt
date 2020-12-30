@@ -137,14 +137,16 @@ class SetupActivity : AppCompatActivity() {
     }
 
     fun temporaryPopulateSpinners() {
+        val yearsArrayAdapter = ArrayAdapter<Int>(this, android.R.layout.simple_spinner_dropdown_item)
         val makesArrayAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
         val modelsArrayAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
-        val years = ArrayList<String>()
+        val years = HashSet<Int>()
+        val makes = HashSet<String>()
+        val models = HashSet<String>()
         val yearSpinner = findViewById<Spinner>(R.id.yearSpinner)
         val makeSpinner = findViewById<Spinner>(R.id.makeSpinner)
         val modelSpinner = findViewById<Spinner>(R.id.modelSpinner)
 
-        println("hello")
         var rows: List<Array<String>> = ArrayList()
         val csvReader = CSVReader(this@SetupActivity, "vehicles.csv")
         try {
@@ -154,38 +156,24 @@ class SetupActivity : AppCompatActivity() {
         }
 
         for (i in rows.indices) {
-            println("hello1")
-            years.add(rows[i][63])
-            makesArrayAdapter.add(rows[i][46])
-            modelsArrayAdapter.add(rows[i][47])
+            try {
+                years.add(Integer.parseInt(rows[i][63].trim()))
+            } catch(e: NumberFormatException) {
+                this
+            }
+            makes.add(rows[i][46].trim())
+            models.add(rows[i][47].trim())
         }
 
-    println("hello2")
+        yearsArrayAdapter.addAll(years)
+        yearsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        yearSpinner.adapter = yearsArrayAdapter
 
-        years.add("Year")
-        years.add("1994")
-        years.add("2000")
-
-        val arrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
-        arrayAdapter.addAll(years)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        yearSpinner.adapter = arrayAdapter
-
-
-
-        makesArrayAdapter.add("Toyota")
-        makesArrayAdapter.add("Honda")
-        makesArrayAdapter.add("Acura")
-        makesArrayAdapter.add("Subaru")
+        makesArrayAdapter.addAll(makes)
         makesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         makeSpinner.adapter = makesArrayAdapter
 
-
-
-        modelsArrayAdapter.add("Camry")
-        modelsArrayAdapter.add("Corolla")
-        modelsArrayAdapter.add("Impreza")
-        modelsArrayAdapter.add("Crosstrek")
+        modelsArrayAdapter.addAll(models)
         modelsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         modelSpinner.adapter = modelsArrayAdapter
     }
