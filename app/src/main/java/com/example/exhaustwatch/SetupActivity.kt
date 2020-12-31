@@ -161,8 +161,17 @@ class SetupActivity : AppCompatActivity() {
             } catch(e: NumberFormatException) {
                 this
             }
-            makes.add(rows[i][46].trim())
-            models.add(rows[i][47].trim())
+            try {
+                val num = Integer.parseInt(rows[i][46].trim())
+            } catch(e: java.lang.NumberFormatException){
+                makes.add(rows[i][46].trim())
+            }
+            try {
+                val num = Integer.parseInt(rows[i][47].trim())
+            } catch(e: java.lang.NumberFormatException){
+                models.add(rows[i][47].trim())
+            }
+
         }
 
         yearsArrayAdapter.addAll(years)
