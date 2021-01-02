@@ -9,4 +9,9 @@
     <string name="email">Email</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+    <string name="_0">0</string>
+    <string name="_2500">/2500</string>
+    <string name="_15000">/15000</string>
+    <string name="_30000">/30000</string>
+    <string name="_300000">/300000</string>
 </resources>
