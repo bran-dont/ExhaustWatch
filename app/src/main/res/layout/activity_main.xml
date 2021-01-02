@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/goal_steps"
                     android:layout_centerInParent="true"
-                    android:text="@string/_300000"
+                    android:text="@string/_10000"
                     android:textColor="@android:color/black"
                     android:layout_below="@+id/tv_stepsTaken"
                     android:textSize="20sp"/>
