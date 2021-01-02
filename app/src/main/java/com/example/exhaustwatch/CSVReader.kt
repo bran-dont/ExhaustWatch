@@ -24,8 +24,6 @@ class CSVReader(private var context: Context, private var fileName: String) {
             rows.add(row)
             line = br.readLine()
         }
-
-
         return rows
     }
 }

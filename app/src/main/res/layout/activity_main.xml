@@ -75,7 +75,7 @@
             layout="@layout/app_bar_layout">
         </include>
 
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="690dp"
@@ -87,7 +87,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-        </FrameLayout>
+            <RelativeLayout
+                android:id="@+id/progress_bar_container"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="200dp">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/circularProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="5dp"
+                    app:cpb_progress_direction="to_right"
+                    app:cpb_progressbar_color="#3f51b5"
+                    app:cpb_progressbar_width="15dp"
+                    app:cpb_round_border="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_stepsTaken"
+                    android:layout_centerInParent="true"
+                    android:text="@string/_0"
+                    android:textColor="@android:color/black"
+                    android:textSize="50sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/goal_steps"
+                    android:layout_centerInParent="true"
+                    android:text="@string/_300000"
+                    android:textColor="@android:color/black"
+                    android:layout_below="@+id/tv_stepsTaken"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
