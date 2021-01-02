@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var running  = false
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
+    private var currentSteps = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     override fun onResume() {
         super.onResume()
         running = true
-        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) //mayb add : Sensor? after stepSensor
 
         if(stepSensor == null) {
             Toast.makeText(this, "No sensor detected on this device", Toast.LENGTH_SHORT).show()
@@ -130,8 +131,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        TODO("Not yet implemented")
-
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
@@ -139,19 +138,20 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             if (p0 != null) {
                 totalSteps = p0.values[0]
             }
-            val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
+            currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
             val steps = findViewById<TextView>(R.id.tv_stepsTaken)
             steps.text = ("$currentSteps")
             val progress_circular = findViewById<CircularProgressBar>(R.id.circularProgressBar)
             progress_circular.apply{
                 setProgressWithAnimation(currentSteps.toFloat())
+                progressMax = 10000f
             }
         }
     }
     fun resetSteps(){
         val steps = findViewById<TextView>(R.id.tv_stepsTaken)
         steps.setOnClickListener{
-            Toast.makeText(this, "Long tap to reset teps", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Long tap to reset steps", Toast.LENGTH_SHORT).show()
         }
 
         steps.setOnLongClickListener{
