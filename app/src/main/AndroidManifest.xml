@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <!-- android:theme="@style/Theme.ExhaustWatch" -->
+
         <activity android:name=".SetupActivity" />
         <activity android:name=".LoginActivity" >
             <intent-filter>
