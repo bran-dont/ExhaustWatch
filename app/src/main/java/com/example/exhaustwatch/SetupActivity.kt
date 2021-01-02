@@ -1,6 +1,7 @@
 package com.example.exhaustwatch
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -14,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.IOException
+import java.lang.Exception
 
 
 class SetupActivity : AppCompatActivity() {
@@ -158,32 +160,107 @@ class SetupActivity : AppCompatActivity() {
         for (i in rows.indices) {
             try {
                 years.add(Integer.parseInt(rows[i][63].trim()))
-            } catch(e: NumberFormatException) {
+            } catch (e: NumberFormatException) {
                 this
             }
             try {
                 val num = Integer.parseInt(rows[i][46].trim())
-            } catch(e: java.lang.NumberFormatException){
+            } catch (e: NumberFormatException) {
                 makes.add(rows[i][46].trim())
             }
             try {
                 val num = Integer.parseInt(rows[i][47].trim())
-            } catch(e: java.lang.NumberFormatException){
+            } catch (e: NumberFormatException) {
                 models.add(rows[i][47].trim())
             }
-
         }
-
         yearsArrayAdapter.addAll(years)
         yearsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         yearSpinner.adapter = yearsArrayAdapter
 
-        makesArrayAdapter.addAll(makes)
-        makesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        makeSpinner.adapter = makesArrayAdapter
+        yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                try {
+                    val tv = findViewById<TextView>(R.id.fullName)
+                    tv.text = "sup bro"
+                    val filtered = filterMakes(rows, this.toString().trim().toInt())
+                    val listOfMakes: ArrayList<String> = ArrayList()
+                    for (i in filtered.indices) {
+                        listOfMakes.add(filtered[i][46])
+                    }
+                    makesArrayAdapter.addAll(listOfMakes)
+                    makesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    makeSpinner.adapter = makesArrayAdapter
+                }
+                catch (e : java.lang.NumberFormatException) {
+                    //Toast.makeText(this@SetupActivity, "Clicked on something that was not a number.", Toast.LENGTH_SHORT).show()
+                }
+                catch (e : Exception) {
+                    Toast.makeText(this@SetupActivity, "Unknown bug in yearspinner select listener.", Toast.LENGTH_SHORT).show()
+                }
+            }
 
-        modelsArrayAdapter.addAll(models)
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                makesArrayAdapter.clear()
+                makeSpinner.adapter = makesArrayAdapter
+            }
+        }
+        Toast.makeText(this, "sup bro", Toast.LENGTH_SHORT).show()
+        /*makesArrayAdapter.addAll(makes)
+        makesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        makeSpinner.adapter = makesArrayAdapter*/
+
+        makeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val filtered = filterModels(rows, this.toString())
+                val listOfMakes: ArrayList<String> = ArrayList()
+                for(i in filtered.indices){
+                    listOfMakes.add(filtered[i][46])
+                }
+                modelsArrayAdapter.addAll(listOfMakes)
+                modelsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                modelSpinner.adapter = modelsArrayAdapter
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                modelsArrayAdapter.clear()
+                modelSpinner.adapter = modelsArrayAdapter
+            }
+
+        }
+
+        /*modelsArrayAdapter.addAll(models)
         modelsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        modelSpinner.adapter = modelsArrayAdapter
+        modelSpinner.adapter = modelsArrayAdapter*/
+    }
+
+    fun filterMakes(rows: List<Array<String>>, year: Int) : List<Array<String>> {
+        var filtered: MutableList<Array<String>> = ArrayList()
+        try {
+            for (i in rows.indices) {
+                try {
+                    if (rows[i][63].trim().toInt() == year) {
+                        filtered.add(rows[i])
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Expected an integer but found a different value type.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
+        catch (e : Exception) {
+            Toast.makeText(this, "error in filterMakes", Toast.LENGTH_SHORT).show()
+        }
+        return filtered
+    }
+
+    fun filterModels(rows: List<Array<String>>, make: String) : List<Array<String>> {
+        var filtered: MutableList<Array<String>> = ArrayList()
+        for(i in rows.indices){
+            if(rows[i][46] == make){
+                filtered.add(rows[i])
+            }
+        }
+        return filtered
     }
 }
