@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val email = findViewById<TextView>(R.id.your_email)
         val phone = findViewById<TextView>(R.id.your_number)
         val gpm = findViewById<TextView>(R.id.your_gpm)
-        val trees = findViewById<TextView>(R.id.your_trees)
+        val grams = findViewById<TextView>(R.id.your_trees)
         val mToolbar = findViewById<Toolbar>(R.id.main_page_toolbar)
 
 
@@ -89,6 +89,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     fullName.text = documentSnapshot.getString("fName")
                     email.text = documentSnapshot.getString("email")
                     gpm.text = documentSnapshot.getString("exhaust")
+                    var gpm = (gpm.text).toString()
+                    stepsToMiles()
+                    var gram = milesWalked * gpm.toDouble()
+                    grams.text = gram.toString() + "g"
                 }
             }
 
