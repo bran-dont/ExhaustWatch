@@ -23,7 +23,10 @@ class LoginActivity : AppCompatActivity() {
         val fAuth = FirebaseAuth.getInstance()
 
 
-        mRegisterBtn.setOnClickListener { startActivity(Intent(applicationContext, SetupActivity::class.java)) }
+        mRegisterBtn.setOnClickListener {
+            Toast.makeText(this, "Please allow some time for the next page to load.", Toast.LENGTH_LONG).show()
+            startActivity(Intent(applicationContext, SetupActivity::class.java))
+        }
 
         mLoginBtn.setOnClickListener(object: View.OnClickListener {
             @Override

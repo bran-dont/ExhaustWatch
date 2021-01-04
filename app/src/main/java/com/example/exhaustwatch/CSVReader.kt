@@ -17,12 +17,12 @@ class CSVReader(private var context: Context, private var fileName: String) {
         val br = BufferedReader(isr)
         var line: String
         val csvSplitBy = ","
-        line = br.readLine()
-        line = br.readLine()
+        //line = br.readLine()
+        //line = br.readLine()
         br.forEachLine {
-            val row = line.split(csvSplitBy).toTypedArray()
+            val row = it.split(csvSplitBy).toTypedArray()
             rows.add(row)
-            line = br.readLine()
+            //line = br.readLine()
         }
         return rows
     }
