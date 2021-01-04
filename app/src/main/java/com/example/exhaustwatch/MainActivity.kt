@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
     private var currentSteps = 0
+    private var milesWalked = 0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,6 +53,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val fullName = findViewById<TextView>(R.id.your_name)
         val email = findViewById<TextView>(R.id.your_email)
         val phone = findViewById<TextView>(R.id.your_number)
+        val gpm = findViewById<TextView>(R.id.your_gpm)
+        val trees = findViewById<TextView>(R.id.your_trees)
         val mToolbar = findViewById<Toolbar>(R.id.main_page_toolbar)
 
 
@@ -72,6 +75,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         loadData()
         resetSteps()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepsToMiles()
 
         userId?.let { fStore.collection("users").document(it) }
             ?.addSnapshotListener { documentSnapshot, e ->
@@ -84,8 +88,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     phone.text = documentSnapshot.getString("phone")
                     fullName.text = documentSnapshot.getString("fName")
                     email.text = documentSnapshot.getString("email")
+                    gpm.text = documentSnapshot.getString("exhaust")
                 }
             }
+
 
         navigationView.setNavigationItemSelectedListener { item ->
             userMenuSelector(item)
@@ -261,6 +267,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun stepsToMiles(){
+        milesWalked = totalSteps/2500f
     }
 
 }
