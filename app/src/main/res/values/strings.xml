@@ -7,4 +7,12 @@
     <string name="already_have_an_account_login_here">Already Have an Account? Login Here</string>
     <string name="register">Register</string>
     <string name="email">Email</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="_0">0</string>
+    <string name="_2500">/2500</string>
+    <string name="_15000">/15000</string>
+    <string name="_30000">/30000</string>
+    <string name="_300000">/300000</string>
+    <string name="_10000">/10000</string>
 </resources>
