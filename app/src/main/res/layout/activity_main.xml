@@ -63,6 +63,32 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5"
             android:layout_marginLeft="150dp" />
 
+        <TextView
+            android:id="@+id/your_gpm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginBottom="400dp"
+            android:text="Your GPM"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            android:layout_marginLeft="150dp" />
+
+        <TextView
+            android:id="@+id/your_trees"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginBottom="350dp"
+            android:text="# of Trees Saved"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            android:layout_marginLeft="150dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
